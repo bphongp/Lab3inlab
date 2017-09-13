@@ -10,37 +10,35 @@
 using namespace std;
 int main(){
     postfixCalculator p; //user wants to use calculator
-    cout<<"Enter values with space between each operator then press enter then Contrl-D"<<endl;
+    cout<<"Welcome, this is a postfix Calculator"<<endl<<
+      "Enter values with space between each operator/operand"<<endl<<
+      "Press Enter then Contrl-D when done"<<endl;
     string s;
-    while (cin >> s) {
+    int x;
+    const char* cstring= s.c_str();  //calling c_str()
+    while(cin>>s){
       if(s==""){
 	break;  //instead of cout<<s<endl;
       }
-      int x;
-      const char* cstring= s.c_str();  //calling c_str()
-      if(isdigit(cstring[0])){
+      if (s=="+"){
+	p.add();
+      }
+      else if(s=="*"){
+	p.multiply();
+      }
+      else if(s=="-"){
+	p.subtract();
+      }
+      else if(s=="/"){
+	p.divide();
+      }
+      else if(s=="~"){
+	p.negate();
+      }
+      else{    //anything other than operator are going to be digits
 	x=atoi(cstring);
 	p.pushInt(x);
       }
-      if(cstring[0]=='-' && s.length()>1){
-	x=atoi(cstring);
-	p.pushInt(-x);
-      }
-	if (s=="+"){
-	  p.add();
-	}
-	if(s=="*"){
-	  p.multiply();
-	}
-	if(s=="-"){
-	  p.subtract();
-	}
-	if(s=="/"){
-	  p.divide();
-	}
-	if(s=="~"){
-	  p.negate();
-	}
     }
     /*
     p.pushInt(24);  //user enters in numbers and operation buttons
@@ -61,11 +59,10 @@ int main(){
     p.add();            //3+22= 25      stack: 25
     p.pushInt(5);       //              stack: 5,25
     p.divide();         //25/5=5        stack: 5
-    p.pushInt(2);          //              stack: 2,5
+    p.pushInt(2);       //              stack: 2,5
     p.subtract();       //5-2=3         stack: 3
     p.negate();         //-3            stack: -3
     */
     cout << "Result is: "<< p.answer() << endl;   //should print out 2 then if continue print out -3
     return 0;
 }
-  
